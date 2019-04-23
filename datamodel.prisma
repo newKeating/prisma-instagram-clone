@@ -4,10 +4,10 @@ type User {
   email: String! @unique
   firstName: String @default(value: "")
   lastName: String
-  bio: String!
-  posts: [Post!]!
-  likes: [Like!]!
-  comments: [Comment!]!
+  bio: String
+  posts: [Post!]! @relation(name: "PostsOfUser", onDelete: CASCADE)
+  likes: [Like!]! @relation(name: "LikesOfUser", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name: "CommentsOfUser", onDelete: CASCADE)
   follwers: [User!]! @relation(name: "FollowRelation")
   following: [User!]! @relation(name: "FollowRelation")
   rooms: [Room!]!
@@ -17,19 +17,20 @@ type User {
 
 type Post {
   id: ID! @id
-  files: [File!]!
+  files: [File!]! @relation(name: "FilesOfPost", onDelete: CASCADE)
   location: String
   caption: String!
-  likes: [Like!]!
-  comments: [Comment!]!
+  user: User @relation(name: "PostsOfUser")
+  likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
+  comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
 
 type Like {
   id: ID! @id
-  user: User!
-  post: Post!
+  user: User! @relation(name: "LikesOfUser")
+  post: Post! @relation(name: "LikeOfPost")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -37,8 +38,8 @@ type Like {
 type Comment {
   id: ID! @id
   text: String!
-  user: User!
-  post: Post!
+  user: User! @relation(name: "CommentsOfUser")
+  post: Post! @relation(name: "CommentOfPost")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -46,7 +47,7 @@ type Comment {
 type File {
   id: ID! @id
   url: String!
-  post: Post!
+  post: Post! @relation(name: "FilesOfPost")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
