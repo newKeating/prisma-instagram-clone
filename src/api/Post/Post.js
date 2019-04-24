@@ -19,6 +19,17 @@ export default {
           }
         ]
       });
-    }
+    },
+    likeCount: (parent, _, { request }) =>
+      prisma
+        .likesConnection({
+          where: {
+            post: {
+              id: parent.id
+            }
+          }
+        })
+        .aggregate()
+        .count()
   }
 };

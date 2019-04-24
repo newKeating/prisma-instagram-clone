@@ -30,8 +30,8 @@ type Post {
 
 type Like {
   id: ID! @id
-  user: User! @relation(name: "LikesOfUser")
-  post: Post! @relation(name: "LikeOfPost")
+  user: User @relation(name: "LikesOfUser")
+  post: Post @relation(name: "LikeOfPost")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -39,8 +39,8 @@ type Like {
 type Comment {
   id: ID! @id
   text: String!
-  user: User! @relation(name: "CommentsOfUser")
-  post: Post! @relation(name: "CommentOfPost")
+  user: User @relation(name: "CommentsOfUser")
+  post: Post @relation(name: "CommentOfPost")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
