@@ -30,6 +30,17 @@ export default {
           }
         })
         .aggregate()
-        .count()
+        .count(),
+    files: parent => prisma.post({ id: parent.id }).files(),
+    comments: ({ id }) => prisma.post({ id }).comments(),
+    commentCount: parent =>
+      prisma
+        .commentsConnection({
+          where: { post: { id: parent.id } }
+        })
+        .aggregate()
+        .count(),
+    user: ({ id }) => prisma.post({ id }).user(),
+    likes: ({ id }) => prisma.post({ id }).likes()
   }
 };
