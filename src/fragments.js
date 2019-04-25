@@ -13,6 +13,7 @@ export const USER_FRAGMENT = `
   fragment UserParts on User {
     id
     username
+    avatar
   }
 `;
 
@@ -46,6 +47,17 @@ export const FULL_POST_FRAGMENT = `
     user {
       id
       username
+    }
+  }
+`;
+
+export const ROOM_FRAGMENT = `
+  fragment RoomParts on Room {
+    id
+    participants {
+      id
+      username
+      avatar
     }
   }
 `;
